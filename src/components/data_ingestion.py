@@ -1,12 +1,14 @@
-import os
+
 import sys
-
-from src.exception import CustomException
-from src.logger import logging
+sys.path.append(r'C:\DataScience\Visual studio\end_to_end_ML_projects_\Creditcard_fraud_detection_01')
+import os
 import pandas as pd
-
-from sklearn.model_selection import train_test_split
+from src.logger import logging
+from src.exception import CustomException
 from dataclasses import dataclass
+from sklearn.model_selection import train_test_split
+from src.components import DataTransformation, DataTransformationConfig
+
 
 @dataclass
 
@@ -30,8 +32,13 @@ class DataIngestion:
                
                os.makedirs(os.path.dirname(self.ingestion_config.train_data_path), exist_ok=True)
                
-               file_path_cc = os.path.abspath('notebook/local_dataset/creditcard.csv')
-               df = pd.read_csv(file_path_cc)
+               
+               current_directory = os.path.abspath(os.path.join(os.getcwd(), "..", ".."))
+               relative_path = 'notebook\local_dataset\creditcard.csv'
+               data_file_path_cc = os.path.join(current_directory, relative_path)
+                             
+               
+               df = pd.read_csv(data_file_path_cc)
                logging.info("The local dataset is loaded to a variable")
                
                
@@ -39,13 +46,15 @@ class DataIngestion:
                df.to_csv(self.ingestion_config.raw_data_path, index=False, header=True)
                
                logging.info("The train test split is starting")
+                 
+               df.head()
                
                train_set, test_set = train_test_split(df,test_size=0.2, random_state=1)
                
                train_set.to_csv(self.ingestion_config.train_data_path, index=False, header=True)
                test_set.to_csv(self.ingestion_config.test_data_path, index=False, header=True)
                
-               logging.info("The data ingested is save to the artifacts directory")
+               logging.info("The data ingested, and is ready to save to the artifacts directory")
                
                return (self.ingestion_config.train_data_path, self.ingestion_config.test_data_path)
                
@@ -55,6 +64,12 @@ class DataIngestion:
           
           
 if __name__=="__main__":
-     
+    
+
      obj =DataIngestion()
-     obj.initiate_data_ingestion()
+     train_data, test_data = obj.initiate_data_ingestion()
+     
+     
+     data_transformation= DataTransformation()    
+     data_transformation.initiate_data_transformation(train_data, test_data)
+  
