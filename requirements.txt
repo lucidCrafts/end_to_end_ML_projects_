@@ -8,4 +8,10 @@ keras==2.12.0
 seaborn==0.12.2
 xgboost==1.7.6
 dill
+tensorflow==2.12.0
+imbalanced-learn==0.10.1
+keras==2.12.0
+seaborn==0.12.2
+
+catboost
 -e .

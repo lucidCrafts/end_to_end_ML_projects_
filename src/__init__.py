@@ -5,5 +5,5 @@ sys.path.append(r'C:\DataScience\Visual studio\end_to_end_ML_projects_\Creditcar
 # Import key modules and classes
 from src.exception import *
 from .logger import logging
-
 from .utils import df_balancer, save_object
+from .utils import neural_net

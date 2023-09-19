@@ -19,7 +19,7 @@ def get_requirements(file_path:str)->List[str]:
 setup(
      
      name= 'capstone_project',
-     version='0.0.1',
+     version='0.0.2',
      author='Varun Vijay',
      author_email='varunvijay969@gmail.com',
      packages=find_packages(),
