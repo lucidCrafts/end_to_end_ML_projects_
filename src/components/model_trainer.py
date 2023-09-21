@@ -19,8 +19,26 @@ from src.logger import logging
 
 from src.utils import save_object
 from src.utils import evaluate_models
-from src.utils import neural_net
+
 from src.utils import load_object
+
+from keras.models import Sequential
+from keras.layers import InputLayer, Dense, BatchNormalization
+from keras.models import load_model
+from keras.wrappers.scikit_learn import KerasClassifier
+from keras.callbacks import ModelCheckpoint
+from src.utils import neural_net
+
+
+
+
+
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import GradientBoostingClassifier, AdaBoostClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from xgboost import XGBClassifier
+from sklearn.linear_model import LogisticRegression
+from keras.wrappers.scikit_learn import KerasClassifier
 
 
 
@@ -49,46 +67,50 @@ class ModelTrainer:
                
                
                models = {
-                "Decision Tree": DecisionTreeRegressor(),
-                "Gradient Boosting": GradientBoostingRegressor(),
-                "K-Neighbors": KNeighborsRegressor(),
-                "XGBoost": XGBRegressor(),
-                "AdaBoost": AdaBoostRegressor(),
+                "Decision Tree": DecisionTreeClassifier(),
+                "Gradient Boosting": GradientBoostingClassifier(),
+                "K-Neighbors": KNeighborsClassifier(),
+                "XGBoost": XGBClassifier(),
+                "AdaBoost": AdaBoostClassifier(),
                 "Logistic Regression": LogisticRegression(),
+                "Neural Net": KerasClassifier(build_fn=neural_net, verbose=0),
                 # Add more models here if needed
                }
                
                params = { 
-               "Decision Tree": { 
-               #'criterion': ['mse', 'friedman_mse', 'mae'],  # Example criterion values
-               #'max_depth': [None, 5, 10, 20],  # Example max_depth values
-               # Add more DecisionTreeRegressor parameters here
-               },
-               "Gradient Boosting": { 
-               #'n_estimators': [50, 100, 200],  # Example n_estimators values
-               #'learning_rate': [0.01, 0.1, 0.2],  # Example learning_rate values
-               # Add more GradientBoostingRegressor parameters here
-               },
+               "Decision Tree": {
+               'criterion': ['gini', 'entropy'],
+               'max_depth': [None, 5, 10, 20],
+          },
+               "Gradient Boosting": {
+               'n_estimators': [50, 100, 200],
+               'learning_rate': [0.01, 0.1, 0.2],
+          },
                "K-Neighbors": {
-               #'n_neighbors': [3, 5, 10],  # Example n_neighbors values
-               #'weights': ['uniform', 'distance'],  # Example weights values
-               # Add more KNeighborsRegressor parameters here
-               },
-               "XGBoost": { 
-               #'n_estimators': [50, 100, 200],  # Example n_estimators values
-               #'learning_rate': [0.01, 0.1, 0.2],  # Example learning_rate values
-               # Add more XGBRegressor parameters here
-               },
-               "AdaBoost": {  
-               #'n_estimators': [50, 100, 200],  # Example n_estimators values
-               #'learning_rate': [0.01, 0.1, 0.2],  # Example learning_rate values
-               # Add more AdaBoostRegressor parameters here
-               },
-               "Logistic Regression": { 
-               #'C': [0.1, 1.0, 10.0],  # Example C values
-               #'penalty': ['l1', 'l2'],  # Example penalty values
-               # Add more LogisticRegression parameters here
-               },
+               'n_neighbors': [3, 5, 10],
+               'weights': ['uniform', 'distance'],
+          },
+               "XGBoost": {
+               'n_estimators': [50, 100, 200],
+               'learning_rate': [0.01, 0.1, 0.2],
+          },
+               "AdaBoost": {
+               'n_estimators': [50, 100, 200],
+               'learning_rate': [0.01, 0.1, 0.2],
+          },
+               "Logistic Regression": {
+               'C': [0.1, 1.0, 10.0],
+               'penalty': ['l1', 'l2', 'elasticnet', 'none'],
+               'solver': ['newton-cg', 'lbfgs', 'liblinear', 'sag', 'saga'],
+          },
+               "Neural Net": {
+               'epochs': [5],
+               'batch_size': [10, 20],
+               'optimizer': ['Adam'],#, 'SGD'
+               'neurons': [3],
+               'activation': ['relu'],#, 'tanh'
+               'input_shape': [(X_train.shape[1],)]
+          },
           # Add more models and their parameters here if needed
                }
 
@@ -105,7 +127,7 @@ class ModelTrainer:
                if best_model_score<0.5:
                     raise CustomException("No best model found")
                
-               logging.info("EMPTY, its supposed find a best model here")
+               logging.info("Model training is done..")
                
                #preprocessing_obj = load_objects(file_path)
                
