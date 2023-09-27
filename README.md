@@ -15,7 +15,7 @@ Detect fraudulent transactions with our end-to-end machine learning solution.
 
 ## 🛠 Installation
 
-1. **Clone the Repository**:
+1. **Clone the Repository**:comm
 
      git clone https://github.com/lucidCrafts/end_to_end_ML_projects_.git
 
@@ -36,34 +36,33 @@ python data_ingestion.py
 
 Ensure you're using the correct Python environment, especially if you're using a virtual environment like `venv`.
 
+Ensure you're using the correct Python environment, especially if you're using a virtual environment like `venv`.
+
 ## 🗂 Project Structure
 
-credit_card_fraud_detection
-│
-├── .gitignore
-├── capstone_project.egg-info
-├── logs
-│ └── Various log files...
-├── notebook
-│ └── Jupyter notebooks for exploratory data analysis and more...
-├── README.md
-├── requirements.txt
-├── setup.py
-├── src
-│ ├── components
-│ │ ├── artifacts
-│ │ ├── data_ingestion.py
-│ │ ├── data_preprocess.py
-│ │ ├── data_transformation.py
-│ │ ├── model_trainer.py
-│ ├── exception.py
-│ ├── logger.py
-│ ├── pipeline
-│ ├── utils.py
-│ └── init.py
-└── venv
-
-
+- **Root**
+  - `.gitignore`
+  - `capstone_project.egg-info`
+  - `logs`
+    - Various log files
+  - `notebook`
+    - Jupyter notebooks for exploratory data analysis and more
+  - `README.md`
+  - `requirements.txt`
+  - `setup.py`
+  - `src`
+    - `components`
+      - `artifacts`
+      - `data_ingestion.py`
+      - `data_preprocess.py`
+      - `data_transformation.py`
+      - `model_trainer.py`
+    - `exception.py`
+    - `logger.py`
+    - `pipeline`
+    - `utils.py`
+    - `__init__.py`
+  - `venv`
 
 ## 📜 Modules Description
 
@@ -73,6 +72,14 @@ credit_card_fraud_detection
 - **model_trainer.py**: Where the magic happens! Trains the ML model for fraud detection.
 
 ...and many more! Dive into the modules to know more.
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome! See our [contributing guide](link-to-contributing-guide-if-you-have-one.md).
+
+## 📜 License
+
+[MIT](soon.md)
 
 ## 🤝 Contributing
 
