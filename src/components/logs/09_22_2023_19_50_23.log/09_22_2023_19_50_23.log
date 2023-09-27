@@ -1,0 +1,4 @@
+[ 2023-09-22 19:50:28,437 ] 41 root - INFO -Data Ingestion method is runnning..
+[ 2023-09-22 19:50:29,788 ] 54 root - INFO -The local dataset is loaded to a variable
+[ 2023-09-22 19:50:29,788 ] 57 root - INFO -The dataset is being balanced..
+[ 2023-09-22 19:50:36,984 ] 60 root - INFO -The train test split is starting

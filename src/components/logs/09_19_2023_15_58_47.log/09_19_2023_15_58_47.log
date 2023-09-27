@@ -1,0 +1,19 @@
+[ 2023-09-19 15:58:47,792 ] 37 root - INFO -Data Ingestion method is runnning..
+[ 2023-09-19 15:58:48,901 ] 50 root - INFO -The local dataset is loaded to a variable
+[ 2023-09-19 15:58:48,901 ] 53 root - INFO -The dataset is being balanced..
+[ 2023-09-19 15:58:54,961 ] 56 root - INFO -The train test split is starting
+[ 2023-09-19 15:59:01,663 ] 68 root - INFO -The data ingested, and is ready to save to the artifacts directory
+[ 2023-09-19 15:59:02,753 ] 42 root - INFO -Numerical columns: ['Time', 'Amount']
+[ 2023-09-19 15:59:02,753 ] 67 root - INFO -Read train and test data completed
+[ 2023-09-19 15:59:02,756 ] 69 root - INFO -Obtaining preprocessing object
+[ 2023-09-19 15:59:02,772 ] 84 root - INFO -Applying preprocessing object on training dataframe and testing dataframe.
+[ 2023-09-19 15:59:02,798 ] 99 root - INFO -Saved preprocessing object.
+[ 2023-09-19 15:59:02,806 ] 38 root - INFO -Split training and test input data
+[ 2023-09-19 15:59:02,806 ] 48 root - INFO -None
+[ 2023-09-19 15:59:02,807 ] 29 root - INFO -Evaluating model: Decision Tree
+[ 2023-09-19 15:59:05,993 ] 29 root - INFO -Evaluating model: Gradient Boosting
+[ 2023-09-19 16:05:30,880 ] 29 root - INFO -Evaluating model: K-Neighbors
+[ 2023-09-19 16:05:35,156 ] 29 root - INFO -Evaluating model: XGBoost
+[ 2023-09-19 16:07:04,256 ] 29 root - INFO -Evaluating model: AdaBoost
+[ 2023-09-19 16:10:33,765 ] 29 root - INFO -Evaluating model: Logistic Regression
+[ 2023-09-19 16:10:35,551 ] 108 root - INFO -EMPTY, its supposed find a best model here

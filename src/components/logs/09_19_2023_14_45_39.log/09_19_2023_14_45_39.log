@@ -1,0 +1,13 @@
+[ 2023-09-19 14:45:39,666 ] 37 root - INFO -Data Ingestion method is runnning..
+[ 2023-09-19 14:45:40,700 ] 50 root - INFO -The local dataset is loaded to a variable
+[ 2023-09-19 14:45:40,701 ] 53 root - INFO -The dataset is being balanced..
+[ 2023-09-19 14:45:54,834 ] 56 root - INFO -The train test split is starting
+[ 2023-09-19 14:46:08,812 ] 68 root - INFO -The data ingested, and is ready to save to the artifacts directory
+[ 2023-09-19 14:46:09,930 ] 42 root - INFO -Numerical columns: ['Time', 'Amount']
+[ 2023-09-19 14:46:09,930 ] 67 root - INFO -Read train and test data completed
+[ 2023-09-19 14:46:09,935 ] 69 root - INFO -Obtaining preprocessing object
+[ 2023-09-19 14:46:09,952 ] 84 root - INFO -Applying preprocessing object on training dataframe and testing dataframe.
+[ 2023-09-19 14:46:09,978 ] 99 root - INFO -Saved preprocessing object.
+[ 2023-09-19 14:46:09,984 ] 38 root - INFO -Split training and test input data
+[ 2023-09-19 14:46:09,984 ] 48 root - INFO -None
+[ 2023-09-19 14:47:35,580 ] 108 root - INFO -EMPTY, its supposed find a best model here

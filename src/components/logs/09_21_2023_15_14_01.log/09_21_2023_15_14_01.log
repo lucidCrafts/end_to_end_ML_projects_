@@ -1,0 +1,25 @@
+[ 2023-09-21 15:14:07,478 ] 41 root - INFO -Data Ingestion method is runnning..
+[ 2023-09-21 15:14:08,423 ] 54 root - INFO -The local dataset is loaded to a variable
+[ 2023-09-21 15:14:08,423 ] 57 root - INFO -The dataset is being balanced..
+[ 2023-09-21 15:14:14,157 ] 60 root - INFO -The train test split is starting
+[ 2023-09-21 15:14:25,480 ] 87 root - INFO -The data ingested, and is ready to save to the artifacts directory
+[ 2023-09-21 15:14:27,608 ] 42 root - INFO -Numerical columns: ['Time', 'Amount']
+[ 2023-09-21 15:14:27,609 ] 67 root - INFO -Read train and test data completed
+[ 2023-09-21 15:14:27,610 ] 69 root - INFO -Obtaining preprocessing object
+[ 2023-09-21 15:14:27,649 ] 84 root - INFO -Applying preprocessing object on training dataframe and testing dataframe.
+[ 2023-09-21 15:14:27,703 ] 99 root - INFO -Saved preprocessing object.
+[ 2023-09-21 15:14:27,725 ] 56 root - INFO -Split training and test input data
+[ 2023-09-21 15:14:27,725 ] 66 root - INFO -None
+[ 2023-09-21 15:14:27,726 ] 54 root - INFO -Evaluating model: Decision Tree :{'criterion': ['gini', 'entropy'], 'max_depth': [None, 5, 10, 20]}: 
+[ 2023-09-21 15:14:48,296 ] 81 root - INFO -Decision Tree F1 score is 0.013157894736842106
+[ 2023-09-21 15:14:48,296 ] 54 root - INFO -Evaluating model: Gradient Boosting :{'n_estimators': [50, 100, 200], 'learning_rate': [0.01, 0.1, 0.2]}: 
+[ 2023-09-21 15:31:27,221 ] 81 root - INFO -Gradient Boosting F1 score is 0.010302351623740201
+[ 2023-09-21 15:31:27,221 ] 54 root - INFO -Evaluating model: K-Neighbors :{'n_neighbors': [3, 5, 10], 'weights': ['uniform', 'distance']}: 
+[ 2023-09-21 15:32:01,569 ] 81 root - INFO -K-Neighbors F1 score is 0.010027347310847767
+[ 2023-09-21 15:32:01,569 ] 54 root - INFO -Evaluating model: XGBoost :{'n_estimators': [50, 100, 200], 'learning_rate': [0.01, 0.1, 0.2]}: 
+[ 2023-09-21 15:36:40,596 ] 81 root - INFO -XGBoost F1 score is 0.008544400366188589
+[ 2023-09-21 15:36:40,597 ] 54 root - INFO -Evaluating model: AdaBoost :{'n_estimators': [50, 100, 200], 'learning_rate': [0.01, 0.1, 0.2]}: 
+[ 2023-09-21 15:48:03,744 ] 81 root - INFO -AdaBoost F1 score is 0.008300616937745375
+[ 2023-09-21 15:48:03,744 ] 54 root - INFO -Evaluating model: Logistic Regression :{'C': [0.1, 1.0, 10.0], 'penalty': ['l1', 'l2', 'elasticnet', 'none'], 'solver': ['newton-cg', 'lbfgs', 'liblinear', 'sag', 'saga']}: 
+[ 2023-09-21 15:48:33,211 ] 81 root - INFO -Logistic Regression F1 score is 0.00368350216051569
+[ 2023-09-21 15:48:33,211 ] 54 root - INFO -Evaluating model: Neural Net :{'epochs': [50, 100], 'batch_size': [10, 20], 'optimizer': ['Adam', 'SGD'], 'neurons': [1, 5], 'activation': ['relu', 'tanh'], 'input_shape': [(2,)]}: 

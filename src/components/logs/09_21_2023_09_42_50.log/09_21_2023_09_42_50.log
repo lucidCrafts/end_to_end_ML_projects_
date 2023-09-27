@@ -1,0 +1,12 @@
+[ 2023-09-21 09:43:00,099 ] 37 root - INFO -Data Ingestion method is runnning..
+[ 2023-09-21 09:43:00,958 ] 50 root - INFO -The local dataset is loaded to a variable
+[ 2023-09-21 09:43:00,958 ] 53 root - INFO -The dataset is being balanced..
+[ 2023-09-21 09:43:06,515 ] 56 root - INFO -The train test split is starting
+[ 2023-09-21 09:43:12,221 ] 68 root - INFO -The data ingested, and is ready to save to the artifacts directory
+[ 2023-09-21 09:43:13,201 ] 42 root - INFO -Numerical columns: ['Time', 'Amount']
+[ 2023-09-21 09:43:13,201 ] 67 root - INFO -Read train and test data completed
+[ 2023-09-21 09:43:13,203 ] 69 root - INFO -Obtaining preprocessing object
+[ 2023-09-21 09:43:13,219 ] 84 root - INFO -Applying preprocessing object on training dataframe and testing dataframe.
+[ 2023-09-21 09:43:13,246 ] 99 root - INFO -Saved preprocessing object.
+[ 2023-09-21 09:43:13,254 ] 44 root - INFO -Split training and test input data
+[ 2023-09-21 09:43:13,254 ] 54 root - INFO -None
