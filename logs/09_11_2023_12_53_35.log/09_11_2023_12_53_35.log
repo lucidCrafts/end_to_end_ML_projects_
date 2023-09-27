@@ -1,0 +1,4 @@
+[ 2023-09-11 12:53:36,734 ] 27 root - INFO -Data Ingestion method is runnning..
+[ 2023-09-11 12:53:37,654 ] 33 root - INFO -The local dataset is loaded to a variable
+[ 2023-09-11 12:53:43,442 ] 39 root - INFO -The train test split is starting
+[ 2023-09-11 12:53:49,426 ] 46 root - INFO -The data ingested is save to the artifacts directory

@@ -17,11 +17,15 @@ from src.utils import df_balancer
 from src.utils import save_object
 
 
+from imblearn.over_sampling import SMOTE
+
+
 @dataclass
 
 class DataIngestionConfig:
      
      train_data_path: str= os.path.join('artifacts',"train.csv")
+     train_set_resampled_path: str= os.path.join('artifacts',"train_resampled.csv")
      test_data_path: str= os.path.join('artifacts',"test.csv")
      val_data_path: str= os.path.join('artifacts',"val.csv")
      raw_data_path: str= os.path.join('artifacts',"data.csv")
@@ -49,17 +53,32 @@ class DataIngestion:
                df = pd.read_csv(data_file_path_cc)
                logging.info("The local dataset is loaded to a variable")
                
-               #balanced_df = df_balancer(df)
+               #df = df_balancer(df)
                logging.info("The dataset is being balanced..")     
                                                   
                df.to_csv(self.ingestion_config.raw_data_path, index=False, header=True)
                logging.info("The train test split is starting")
                #df.head()
                
-               train_set, test_set = train_test_split(df,test_size=0.2, random_state=1)
-               test_set, val_set = train_test_split(test_set, test_size=.5, random_state= 2)
+               train_set, test_set = train_test_split(df,test_size=0.2, random_state=1,stratify=df['Class'])
+               test_set, val_set = train_test_split(test_set, test_size=.5, random_state= 2, stratify=test_set['Class'])
+               logging.info(train_set.head(20))
                
-               train_set.to_csv(self.ingestion_config.train_data_path, index=False, header=True)
+               # Applying SMOTE on training data
+               smote = SMOTE(random_state=42)
+               X_train = train_set.drop('Class', axis=1)  # assuming 'Class' is your target variable
+               y_train = train_set['Class']
+               X_train_resampled, y_train_resampled = smote.fit_resample(X_train, y_train)
+
+               # Merge features and target variable back into a DataFrame
+               train_set_resampled = pd.concat([X_train_resampled, y_train_resampled], axis=1)
+
+               
+               
+               
+               
+               train_set_resampled.to_csv(self.ingestion_config.train_set_resampled_path, index=False, header=True)
+               #train_set.to_csv(self.ingestion_config.train_data_path, index=False, header=True)
                test_set.to_csv(self.ingestion_config.test_data_path, index=False, header=True)
                val_set.to_csv(self.ingestion_config.val_data_path, index=False, header=True)
                
@@ -67,7 +86,8 @@ class DataIngestion:
                
                logging.info("The data ingested, and is ready to save to the artifacts directory")
                
-               return (self.ingestion_config.train_data_path, self.ingestion_config.test_data_path, self.ingestion_config.val_data_path)
+               return (self.ingestion_config.train_set_resampled_path, self.ingestion_config.test_data_path, self.ingestion_config.val_data_path)
+
                
           
           except Exception as e:
@@ -80,10 +100,10 @@ class DataIngestion:
 if __name__=="__main__":
      
      obj =DataIngestion()
-     train_data_path, test_data_path, val_data_path  = obj.initiate_data_ingestion()
+     train_set_resampled_path, test_data_path, val_data_path  = obj.initiate_data_ingestion()
           
      data_transformation= DataTransformation()    
-     train_arr, test_arr, val_arr, _ =data_transformation.initiate_data_transformation(train_data_path, test_data_path, val_data_path)   
+     train_arr, test_arr, val_arr, _ =data_transformation.initiate_data_transformation(train_set_resampled_path, test_data_path, val_data_path)   
      
      modeltrainer = ModelTrainer()
      print(modeltrainer.initiate_model_trainer(train_arr, test_arr, val_arr))

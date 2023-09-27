@@ -17,6 +17,31 @@ from sklearn.metrics import precision_score, recall_score, f1_score, roc_auc_sco
 from .logger import logging
 
 
+from keras.models import Sequential
+from keras.layers import InputLayer, Dense, BatchNormalization
+from keras.models import load_model
+from keras.wrappers.scikit_learn import KerasClassifier
+from keras.callbacks import ModelCheckpoint
+
+
+def df_balancer(df):
+    not_frauds = df[df['Class'] == 0]
+    frauds = df[df['Class'] == 1]
+    
+    # Randomly sample from non-fraudulent transactions
+    not_frauds_sampled = not_frauds.sample(len(frauds), random_state=33)
+    
+    # Concatenate the frauds and the sampled non-frauds
+    balanced_df = pd.concat([frauds, not_frauds_sampled])
+    
+    # Shuffle the resulting dataframe
+    balanced_df = balanced_df.sample(frac=1, random_state=1).reset_index(drop=True)
+    
+    return balanced_df
+
+
+
+
 def evaluate_models(X_train, y_train, X_test, y_test, X_val, y_val, models, params):
     try:
         report = {}
@@ -26,7 +51,7 @@ def evaluate_models(X_train, y_train, X_test, y_test, X_val, y_val, models, para
             model_params = params.get(model_name, {})  # Get the parameters from the 'params' dictionary
             
             
-            logging.info(f"Evaluating model: {model_name}")
+            logging.info(f"Evaluating model: {model_name} :{model_params}: ")
             
             gs = GridSearchCV(model_instance, model_params, cv=3)
             gs.fit(X_train, y_train)
@@ -43,19 +68,34 @@ def evaluate_models(X_train, y_train, X_test, y_test, X_val, y_val, models, para
             roc_auc = roc_auc_score(y_val, y_val_pred_binary)
             f1 = f1_score(y_val, y_val_pred_binary)
 
+            
+            
+            
             report[model_name] = {
                 'Precision': precision,
                 'Recall': recall,
                 'ROC-AUC': roc_auc,
                 'F1-score': f1,
             }           
+            
+            logging.info(f"{model_name} F1 score is {report[model_name]['F1-score']}")
                  
         return report
+    
     except Exception as e:
         raise CustomException(e, sys)
 
 
-        
+
+def neural_net(input_shape, optimizer='adam', neurons=1, activation='relu'):
+    model = Sequential()
+    model.add(InputLayer(input_shape=input_shape))
+    model.add(Dense(neurons, activation=activation))
+    model.add(BatchNormalization())
+    model.add(Dense(1, activation='sigmoid'))
+    model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['accuracy'])
+    return model
+
 def save_object(file_path, obj):
     try:
         dir_path = os.path.dirname(file_path)
@@ -140,7 +180,7 @@ def load_object(file_path):
 
 
 
-def neural_net(X_train, y_train, X_val, y_val):
+'''def neural_net(X_train, y_train, X_val, y_val):
     
     neural_network = Sequential()
     neural_network.add(InputLayer((X_train.shape[1],)))
@@ -160,7 +200,7 @@ def neural_net(X_train, y_train, X_val, y_val):
 #Call this Function by # summary, neural_network= neural_net(X_train, y_train, X_val, y_val)  
     
     
-
+'''
     
     
     
