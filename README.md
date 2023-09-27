@@ -59,6 +59,14 @@ Ensure you're using the correct Python environment, especially if you're using a
   - `src`
     - `components`
       - `artifacts`
+        -`logs` 
+          -`preprocessor.pkl`
+          -`model.pkl`
+          -`data.csv`
+          -`test.csv`
+          -`train_resampled.csv`
+          -`train.csv`
+          -`val.csv`
       - `data_ingestion.py`
       - `data_preprocess.py`
       - `data_transformation.py`
