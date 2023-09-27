@@ -15,28 +15,34 @@ Detect fraudulent transactions with our end-to-end machine learning solution.
 
 ## 🛠 Installation
 
-1. **Clone the Repository**:comm
+1. **Clone the Repository**:
 
-     git clone https://github.com/lucidCrafts/end_to_end_ML_projects_.git
-
+    ```bash
+    git clone https://github.com/lucidCrafts/end_to_end_ML_projects_.git
+    ```
 
 2. **Navigate to Project Directory**:
-     cd root_directory_nameoot
 
+    ```bash
+    cd root_directory_name
+    ```
 
 3. **Install Required Libraries**:
-     pip install -r requirements.txt
+
+    ```bash
+    pip install -r requirements.txt
+    ```
 
 ## 🚀 Running the Project
 
-To ingest the data and kickstart the project, run:
+**To ingest the data and kickstart the project**, run:
 
-python data_ingestion.py
-
+    ```bash
+    python data_ingestion.py
+    ```
 
 Ensure you're using the correct Python environment, especially if you're using a virtual environment like `venv`.
 
-Ensure you're using the correct Python environment, especially if you're using a virtual environment like `venv`.
 
 ## 🗂 Project Structure
 
@@ -81,11 +87,4 @@ Contributions, issues, and feature requests are welcome! See our [contributing g
 
 [MIT](soon.md)
 
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome! See our [contributing guide](will_update_soon.md).
-
-## 📜 License
-
-[MIT](soon.md)
 
