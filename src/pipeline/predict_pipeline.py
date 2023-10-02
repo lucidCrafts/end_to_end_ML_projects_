@@ -1,29 +1,35 @@
 import sys
 import os
 import pandas as pd
+
+from pathlib import Path
+from dataclasses import dataclass
+
 from src.exception import CustomException
 from src.utils import load_object
-from dataclasses import dataclass
+
 
 
 @dataclass
 class PredictPipelineConfig:
-    model_path = os.path.join('artifacts', "model.pkl")
-    preprocessor_path = os.path.join('artifacts', "preprocessor.pkl")
-
-
+    current_directory = Path.cwd()
+    model_path: Path = current_directory.parent / "components" / "artifacts" / "model.pkl"
+    preprocessor_path: Path = current_directory.parent / "components" / "artifacts" / "preprocessor.pkl"
+       
+    val_data_path : Path = current_directory.parent / "components" / "artifacts" / "val.csv"
+    
 class PredictPipeline:
     def __init__(self):
-        pass
+        self.PredictPipelineConfig_filepath = PredictPipelineConfig()
 
     def predict(self, features):
         try:
-            model = load_object(file_path=PredictPipelineConfig.model_path)
-            preprocessor = load_object(file_path=PredictPipelineConfig.preprocessor_path)
+            model = load_object(file_path=self.PredictPipelineConfig_filepath.model_path)
+            preprocessor = load_object(file_path=self.PredictPipelineConfig_filepath.preprocessor_path)
             data_scaled = preprocessor.transform(features)
             predictions = model.predict(data_scaled)
             return predictions
-
+ 
         except Exception as e:
             raise CustomException(e, sys)
 
@@ -104,8 +110,27 @@ class CustomData:
                 "V27":[self.V27],
                 "V28": [self.V28],
                 "Amount": [self.Amount],
-                "Class": [self.Class],
+                #"Class": [self.Class],
             }
             return pd.DataFrame(custom_data_input_dict)
         except Exception as e:
             raise CustomException(e, sys)
+        
+        
+if __name__ == '__main__':
+    model_p: str = os.path.abspath(os.path.join(os.getcwd(),"..", "components/artifacts/model.pkl"))
+    print("                                ")
+    print(model_p)
+    
+    PredictPipelineConfig_filepath = PredictPipelineConfig()
+    pathlib = PredictPipelineConfig_filepath.model_path
+    
+    print(f"The Pathlib path is : {pathlib}")
+    val_data = pd.read_csv(PredictPipelineConfig_filepath.val_data_path)
+    #X = val_data[:, :-1]
+    X = val_data.drop(columns="Class",axis=1)
+    print(X.head(5))
+    
+    #print("Main directory:", PredictPipelineConfig().model_path)
+    model = load_object(pathlib)
+    model.predict(X)
