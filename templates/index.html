@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Credit Card Fraud Detection</title>
+    <script>
+        
+          function fillFormWithSample() {
+               document.querySelector('input[name="Time"]').value = "{{ sample.Time }}";
+               document.querySelector('input[name="V1"]').value = "{{ sample.V1 }}";
+               document.querySelector('input[name="V2"]').value = "{{ sample.V2 }}";
+               document.querySelector('input[name="V3"]').value = "{{ sample.V3 }}";
+               document.querySelector('input[name="V4"]').value = "{{ sample.V4 }}";
+               document.querySelector('input[name="V5"]').value = "{{ sample.V5 }}";
+               document.querySelector('input[name="V6"]').value = "{{ sample.V6 }}";
+               document.querySelector('input[name="V7"]').value = "{{ sample.V7 }}";
+               document.querySelector('input[name="V8"]').value = "{{ sample.V8 }}";
+               document.querySelector('input[name="V9"]').value = "{{ sample.V9 }}";
+               document.querySelector('input[name="V10"]').value = "{{ sample.V10 }}";
+               document.querySelector('input[name="V11"]').value = "{{ sample.V11 }}";
+               document.querySelector('input[name="V12"]').value = "{{ sample.V12 }}";
+               document.querySelector('input[name="V13"]').value = "{{ sample.V13 }}";
+               document.querySelector('input[name="V14"]').value = "{{ sample.V14 }}";
+               document.querySelector('input[name="V15"]').value = "{{ sample.V15 }}";
+               document.querySelector('input[name="V16"]').value = "{{ sample.V16 }}";
+               document.querySelector('input[name="V17"]').value = "{{ sample.V17 }}";
+               document.querySelector('input[name="V18"]').value = "{{ sample.V18 }}";
+               document.querySelector('input[name="V19"]').value = "{{ sample.V19 }}";
+               document.querySelector('input[name="V20"]').value = "{{ sample.V20 }}";
+               document.querySelector('input[name="V21"]').value = "{{ sample.V21 }}";
+               document.querySelector('input[name="V22"]').value = "{{ sample.V22 }}";
+               document.querySelector('input[name="V23"]').value = "{{ sample.V23 }}";
+               document.querySelector('input[name="V24"]').value = "{{ sample.V24 }}";
+               document.querySelector('input[name="V25"]').value = "{{ sample.V25 }}";
+               document.querySelector('input[name="V26"]').value = "{{ sample.V26 }}";
+               document.querySelector('input[name="V27"]').value = "{{ sample.V27 }}";
+               document.querySelector('input[name="V28"]').value = "{{ sample.V28 }}";
+               document.querySelector('input[name="Amount"]').value = "{{ sample.Amount }}";
+           }
+           
+     
+    </script>
+</head>
+<body>
+
+<h2>Enter Transaction Data</h2>
+<form action="/" method="post">
+    Time: <input type="text" name="Time"><br>
+    
+    V1: <input type="text" name="V1"><br>
+    V2: <input type="text" name="V2"><br>
+    V3: <input type="text" name="V3"><br>
+    V4: <input type="text" name="V4"><br>
+    V5: <input type="text" name="V5"><br>
+    V6: <input type="text" name="V6"><br>
+    V7: <input type="text" name="V7"><br>
+    V8: <input type="text" name="V8"><br>
+    V9: <input type="text" name="V9"><br>
+    V10: <input type="text" name="V10"><br>
+    V11: <input type="text" name="V11"><br>
+    V12: <input type="text" name="V12"><br>
+    V13: <input type="text" name="V13"><br>
+    V14: <input type="text" name="V14"><br>
+    V15: <input type="text" name="V15"><br>
+    V16: <input type="text" name="V16"><br>
+    V17: <input type="text" name="V17"><br>
+    V18: <input type="text" name="V18"><br>
+    V19: <input type="text" name="V19"><br>
+    V20: <input type="text" name="V20"><br>
+    V21: <input type="text" name="V21"><br>
+    V22: <input type="text" name="V22"><br>
+    V23: <input type="text" name="V23"><br>
+    V24: <input type="text" name="V24"><br>
+    V25: <input type="text" name="V25"><br>
+    V26: <input type="text" name="V26"><br>
+    V27: <input type="text" name="V27"><br>
+    V28: <input type="text" name="V28"><br>
+    Amount: <input type="text" name="Amount"><br>
+    <input type="submit" value="Predict">
+</form>
+
+<button onclick="fillFormWithSample()">Fill Form with Sample Data</button>
+
+{% if prediction %}
+<h2>Prediction: {{ prediction }}</h2>
+{% endif %}
+
+<h3>Sample Data:</h3>
+<p>Time: {{ sample.Time }}</p>
+<p>V1: {{ sample.V1 }}</p>
+<p>V2: {{ sample.V2 }}</p>
+<p>V3: {{ sample.V3 }}</p>
+<p>V4: {{ sample.V4 }}</p>
+<p>V5: {{ sample.V5 }}</p>
+<p>V6: {{ sample.V6 }}</p>
+<p>V7: {{ sample.V7 }}</p>
+<p>V8: {{ sample.V8 }}</p>
+<p>V9: {{ sample.V9 }}</p>
+<p>V10: {{ sample.V10 }}</p>
+<p>V11: {{ sample.V11 }}</p>
+<p>V12: {{ sample.V12 }}</p>
+<p>V13: {{ sample.V13 }}</p>
+<p>V14: {{ sample.V14 }}</p>
+<p>V15: {{ sample.V15 }}</p>
+<p>V16: {{ sample.V16 }}</p>
+<p>V17: {{ sample.V17 }}</p>
+<p>V18: {{ sample.V18 }}</p>
+<p>V19: {{ sample.V19 }}</p>
+<p>V20: {{ sample.V20 }}</p>
+<p>V21: {{ sample.V21 }}</p>
+<p>V22: {{ sample.V22 }}</p>
+<p>V23: {{ sample.V23 }}</p>
+<p>V24: {{ sample.V24 }}</p>
+<p>V25: {{ sample.V25 }}</p>
+<p>V26: {{ sample.V26 }}</p>
+<p>V27: {{ sample.V27 }}</p>
+<p>V28: {{ sample.V28 }}</p>
+<p>Amount: {{ sample.Amount }}</p>
+
+
+</body>
+</html>
