@@ -7,24 +7,19 @@ from dataclasses import dataclass
 
 from src.exception import CustomException
 from src.utils import load_object
+from src.config import PipelineConfig
 
 
-
-@dataclass
-class PredictPipelineConfig:
-    current_directory = Path.cwd()
-    model_path: Path = current_directory.parent / "components" / "artifacts" / "model.pkl"
-    preprocessor_path: Path = current_directory.parent / "components" / "artifacts" / "preprocessor.pkl"
-       
-    val_data_path : Path = current_directory.parent / "components" / "artifacts" / "val.csv"
-    
 class PredictPipeline:
     def __init__(self):
-        self.PredictPipelineConfig_filepath = PredictPipelineConfig()
+        self.PredictPipelineConfig_filepath = PipelineConfig()
 
     def predict(self, features):
         try:
             model = load_object(file_path=self.PredictPipelineConfig_filepath.model_path)
+            
+            tensor_model_nobugs = keras.models.load_model(self.PredictPipelineConfig_filepath.best_model_file_path)
+            
             preprocessor = load_object(file_path=self.PredictPipelineConfig_filepath.preprocessor_path)
             data_scaled = preprocessor.transform(features)
             predictions = model.predict(data_scaled)
@@ -118,19 +113,18 @@ class CustomData:
         
         
 if __name__ == '__main__':
-    model_p: str = os.path.abspath(os.path.join(os.getcwd(),"..", "components/artifacts/model.pkl"))
-    print("                                ")
-    print(model_p)
     
-    PredictPipelineConfig_filepath = PredictPipelineConfig()
-    pathlib = PredictPipelineConfig_filepath.model_path
-    
-    print(f"The Pathlib path is : {pathlib}")
-    val_data = pd.read_csv(PredictPipelineConfig_filepath.val_data_path)
+    pathlib_model = PipelineConfig().best_model_file_path
+    print(PipelineConfig().val_data_path)
+    val_data = pd.read_csv(PipelineConfig().val_data_path)
     #X = val_data[:, :-1]
     X = val_data.drop(columns="Class",axis=1)
     print(X.head(5))
-    
+    from tensorflow import keras
+
+    model = keras.models.load_model(pathlib_model)  #custom_objects=custom_object
+
     #print("Main directory:", PredictPipelineConfig().model_path)
-    model = load_object(pathlib)
-    model.predict(X)
+    #model = load_object(pathlib_model)
+    predictions = model.predict(X)
+    print(predictions)
