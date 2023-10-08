@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from src.exception import CustomException
 from src.utils import load_object
 from src.config import PipelineConfig
-
+from tensorflow import keras
 
 class PredictPipeline:
     def __init__(self):
@@ -16,16 +16,21 @@ class PredictPipeline:
 
     def predict(self, features):
         try:
-            model = load_object(file_path=self.PredictPipelineConfig_filepath.model_path)
+            print(self.PredictPipelineConfig_filepath.trained_model_file_path)
+            #print("C:\DataScience\Visual studio\end_to_end_ML_projects_\Creditcard_fraud_detection_01\src\components\artifacts\model.h5")
+            #model = load_object(file_path=self.PredictPipelineConfig_filepath.trained_model_file_path)
+            model = keras.models.load_model(self.PredictPipelineConfig_filepath.trained_model_file_path)
+            #tensor_model_nobugs = keras.models.load_model(self.PredictPipelineConfig_filepath.best_model_file_path)
             
-            tensor_model_nobugs = keras.models.load_model(self.PredictPipelineConfig_filepath.best_model_file_path)
+            preprocessor = load_object(file_path=self.PredictPipelineConfig_filepath.preprocessor_obj_path)
             
-            preprocessor = load_object(file_path=self.PredictPipelineConfig_filepath.preprocessor_path)
             data_scaled = preprocessor.transform(features)
             predictions = model.predict(data_scaled)
             return predictions
  
         except Exception as e:
+            print(e)
+            
             raise CustomException(e, sys)
 
 
@@ -111,20 +116,32 @@ class CustomData:
         except Exception as e:
             raise CustomException(e, sys)
         
-        
-if __name__ == '__main__':
+if __name__ =="__main__":
+    #print(PipelineConfig().trained_model_file_path)
+    #model = keras.models.load_model(PipelineConfig().trained_model_file_path)
+    #print(PipelineConfig().val_data_path)
     
-    pathlib_model = PipelineConfig().best_model_file_path
-    print(PipelineConfig().val_data_path)
+    #val_data = pd.read_csv(PipelineConfig().val_data_path)
+    #X_val = val_data.drop(columns='Class')  # Assuming 'Class' is your target column
+
+    
+    #single_instance = X_val.iloc[[1], :]
+    
+    #predictions = model.predict(single_instance)
+    #print(predictions)
+    
+    
+
+    # Instantiate the PredictPipeline
+    ppppipeline_ = PredictPipeline()
+    
+    # Load sample data for testing
     val_data = pd.read_csv(PipelineConfig().val_data_path)
-    #X = val_data[:, :-1]
-    X = val_data.drop(columns="Class",axis=1)
-    print(X.head(5))
-    from tensorflow import keras
-
-    model = keras.models.load_model(pathlib_model)  #custom_objects=custom_object
-
-    #print("Main directory:", PredictPipelineConfig().model_path)
-    #model = load_object(pathlib_model)
-    predictions = model.predict(X)
-    print(predictions)
+    X_val = val_data.drop(columns='Class')  # Assuming 'Class' is your target column
+    single_instance = X_val.iloc[[1], :]
+    
+    # Get predictions
+    predictions = ppppipeline_.predict(single_instance)
+    
+    # Print results
+    print(f"Predicted value: {predictions}")

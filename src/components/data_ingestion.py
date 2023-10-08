@@ -1,15 +1,15 @@
 
 import csv
 import sys
-#sys.path.append(r'C:\DataScience\Visual studio\end_to_end_ML_projects_\Creditcard_fraud_detection_01')
+
 import os
 import pandas as pd
 
 from dataclasses import dataclass
 from sklearn.model_selection import train_test_split
 
-from src.components import DataTransformation, DataTransformationConfig
-from src.components.model_trainer import ModelTrainerConfig, ModelTrainer
+from data_transformation import DataTransformation
+from src.components.model_trainer import ModelTrainer
 from sklearn.metrics import precision_score, recall_score, f1_score, roc_auc_score
 
 from src.logger import logging
@@ -22,68 +22,31 @@ from pathlib import Path
 
 from imblearn.over_sampling import SMOTE
 from dataclasses import dataclass
+from src.config import PipelineConfig
 
 
-
-@dataclass
-class DataIngestionConfig:
-     
-    current_directory_Pathlib = Path.cwd().parent.parent # \end_to_end_ML_projects_\Creditcard_fraud_detection_01
-    #base_dir_Pathlib: Path = current_directory_Pathlib / "src" / "components" / "artifacts"
-
-    train_data_path: Path = current_directory_Pathlib / "src" / "components" / "artifacts"/ "train.csv"
-    train_set_resampled_path: Path = current_directory_Pathlib / "src" / "components" / "artifacts"/ "train_resampled.csv"
-    test_data_path: Path = current_directory_Pathlib / "src" / "components" / "artifacts"/ "test.csv"
-    val_data_path: Path = current_directory_Pathlib / "src" / "components" / "artifacts"/ "val.csv"
-    raw_data_path: Path = current_directory_Pathlib / "src" / "components" / "artifacts"/ "data.csv"
-    preprocessor_obj_path: Path = current_directory_Pathlib / "src" / "components" / "artifacts"/ "preprocessor.pkl"
-    
-       
-    
-    
-'''class DataIngestionConfig:
-     
-     train_data_path: str= os.path.join('artifacts',"train.csv")
-     train_set_resampled_path: str= os.path.join('artifacts',"train_resampled.csv")
-     test_data_path: str= os.path.join('artifacts',"test.csv")
-     val_data_path: str= os.path.join('artifacts',"val.csv")
-     raw_data_path: str= os.path.join('artifacts',"data.csv")
-     preprocessor_obj_path: str= os.path.join('artifacts',"preprocessor.pkl")
-'''
 
 class DataIngestion:
     
      def __init__(self):
-          self.ingestion_config = DataIngestionConfig()
+          self.ingestion_config = PipelineConfig()
      
      def initiate_data_ingestion(self):
           logging.info("Data Ingestion method is runnning..")
           
           try:
               
-               #os.makedirs(os.path.dirname(self.ingestion_config.train_data_path), exist_ok=True)
                self.ingestion_config.train_data_path.parent.mkdir(parents=True, exist_ok=True)
+               data_file_path_cc = self.ingestion_config.current_directory_Pathlib / "Creditcard_fraud_detection_01" / "notebook" / "local_dataset" / "creditcard.csv"
 
-               logging.info("Current diectory is : {self.ingestion_config.current_directory_Pathlib}")
-            
-               data_file_path_cc = self.ingestion_config.current_directory_Pathlib / " notebook" / " local_dataset" / " creditcard.csv"
-               
-               #current_directory = os.path.abspath(os.path.join(os.getcwd(), "..", ".."))
-               #relative_path = 'notebook\local_dataset\creditcard.csv'
-               #data_file_path_cc = os.path.join(current_directory, relative_path)            
-               
                df = pd.read_csv(data_file_path_cc)
                logging.info("The local dataset is loaded to a variable")
-               
-               #df = df_balancer(df)
                logging.info("The dataset is being balanced..")     
-                                                  
                df.to_csv(self.ingestion_config.raw_data_path, index=False, header=True)
                logging.info("The train test split is starting")
-               #df.head()
-               
-               train_set, test_set = train_test_split(df,test_size=0.2, random_state=1,stratify=df['Class'])
-               test_set, val_set = train_test_split(test_set, test_size=.5, random_state= 2, stratify=test_set['Class'])
+               train_set, test_set = train_test_split(df, test_size=0.2, random_state=1, stratify=df['Class'])
+               test_set, val_set = train_test_split(test_set, test_size=.5, random_state=2, stratify=test_set['Class'])
+
                logging.info(train_set.head(20))
                
                # Applying SMOTE on training data
@@ -117,12 +80,12 @@ class DataIngestion:
           
           
 if __name__=="__main__":
-     '''  
+      
      obj =DataIngestion()
      train_set_resampled_path, test_data_path, val_data_path  = obj.initiate_data_ingestion()
           
      data_transformation= DataTransformation()    
-     train_arr, test_arr, val_arr, _ =data_transformation.initiate_data_transformation(train_set_resampled_path, test_data_path, val_data_path)   
+     train_arr, test_arr, val_arr =data_transformation.initiate_data_transformation(train_set_resampled_path, test_data_path, val_data_path)   # , _ 
      
      modeltrainer = ModelTrainer()
      print(modeltrainer.initiate_model_trainer(train_arr, test_arr, val_arr))
@@ -141,7 +104,9 @@ if __name__=="__main__":
      #data_transformation= DataTransformation()    
      #train_arr, test_arr, val_arr, _ =data_transformation.initiate_data_transformation(train_set_resampled_path, test_data_path, val_data_path)   
      print(f" ingestion_config current_directory_Pathlib: {ingestion_config.current_directory_Pathlib}")
-     print(f" ingestion_config  current_directory :{ingestion_config.current_directory}")
+     # print(f" ingestion_config  current_directory :{ingestion_config.current_directory}")
      print(f" ingestion_base_dir :{ingestion_config.base_dir}") 
      print(f" ingestion_base_dir_pAth :{ingestion_config.base_dir_pAth}")
      
+     
+     ''' 
