@@ -28,7 +28,7 @@ from keras.models import load_model
 from keras.wrappers.scikit_learn import KerasClassifier
 from keras.callbacks import ModelCheckpoint
 from src.utils import neural_net
-
+from src.config import PipelineConfig
 
 
 
@@ -39,6 +39,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from xgboost import XGBClassifier
 from sklearn.linear_model import LogisticRegression
 from keras.wrappers.scikit_learn import KerasClassifier
+
 
 
 
