@@ -16,8 +16,8 @@ class PipelineConfig :
     val_data_path: Path = current_directory_Pathlib / "components" / "artifacts"/ "val.csv"
     raw_data_path: Path = current_directory_Pathlib / "components" / "artifacts"/ "data.csv"
     
-    preprocessor_path: Path = current_directory_Pathlib  / "components" / "artifacts"/ "preprocessor.pkl"
-    trained_model_file_path: Path = current_directory_Pathlib / "components" / "artifacts"/ "model.h5"
+    preprocessor_path: Path = current_directory_Pathlib / "src" / "components" / "artifacts"/ "preprocessor.pkl"
+    trained_model_file_path: Path = current_directory_Pathlib / "src" / "components" / "artifacts"/ "model.h5"
        
 
 if __name__=="__main__":
