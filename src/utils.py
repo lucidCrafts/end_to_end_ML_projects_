@@ -6,7 +6,7 @@ import pickle
 import os
 import numpy as np 
 import pandas as pd
-
+import joblib
 
 from sklearn.preprocessing import RobustScaler
 from sklearn.model_selection import GridSearchCV
@@ -22,6 +22,7 @@ from keras.layers import InputLayer, Dense, BatchNormalization
 from keras.models import load_model
 from keras.wrappers.scikit_learn import KerasClassifier
 from keras.callbacks import ModelCheckpoint
+from .config import PipelineConfig
 
 
 def df_balancer(df):
@@ -45,6 +46,8 @@ def df_balancer(df):
 def evaluate_models(X_train, y_train, X_test, y_test, X_val, y_val, models, params):
     try:
         report = {}
+        best_score = float('-inf')  # Initialize best_score
+        best_model = None  # Initialize best_model
         
         for model_name, model_instance in models.items():
             # Access the parameters for the current model
@@ -79,7 +82,18 @@ def evaluate_models(X_train, y_train, X_test, y_test, X_val, y_val, models, para
             }           
             
             logging.info(f"{model_name} F1 score is {report[model_name]['F1-score']}")
-                 
+            # Update the best model if current model is better
+            if report[model_name]['F1-score'] > best_score:
+                best_score = report[model_name]['F1-score']
+                best_model = model_instance
+
+        # Save the best model
+        if best_model is not None:
+            config = PipelineConfig()
+            model_save_path = config.trained_model_file_path
+            os.makedirs(os.path.dirname(model_save_path), exist_ok=True)
+            joblib.dump(best_model, model_save_path)
+                      
         return report
     
     except Exception as e:
